@@ -20,12 +20,17 @@ namespace FindersKeeprs.Controllers
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Vault> GetById(int id)
+    public async Task<ActionResult<Vault>> GetById(int id)
     {
         try
         {
-            Account userInfo = HttpContext.GetUserInfoAsync<Account>().Result;
-            Vault vault = _vs.GetById(id, userInfo.Id);
+            // TODO try putting userinfo check here instead of service...
+            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+            Vault vault = _vs.GetById(id);
+            if (userInfo.Id != vault.CreatorId && vault.isPrivate == true)
+            {
+                throw new Exception("Unable to access that vault");
+            }
             return Ok(vault);
         }
         catch (Exception e)
@@ -54,14 +59,14 @@ namespace FindersKeeprs.Controllers
     
     [HttpPut("{id}")]
     [Authorize]
-    public ActionResult<Vault> Edit(int id, [FromBody] Vault updatedVault)
+    public async Task<ActionResult<Vault>> Edit(int id, [FromBody] Vault updatedVault)
     {
         try
         {   
-            Account userInfo = HttpContext.GetUserInfoAsync<Account>().Result;
+            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
             updatedVault.Id = id;
             updatedVault.CreatorId = userInfo.Id;
-            Vault vault = _vs.Edit(updatedVault, userInfo.Id);
+            Vault vault = _vs.Edit(updatedVault);
             return Ok(vault);
         }
         catch (Exception e)
@@ -77,7 +82,12 @@ namespace FindersKeeprs.Controllers
         try
         {
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            _vs.Delete(id, userInfo.Id);
+            Vault vault = _vs.GetById(id);
+            if (userInfo.Id != vault.CreatorId)
+            {
+                throw new Exception("You are not authorized to do this.");
+            }
+            _vs.Delete(id);
             return Ok("Vault deleted successfully");
         }
         catch (Exception e)
