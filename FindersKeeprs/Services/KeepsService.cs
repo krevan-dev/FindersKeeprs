@@ -34,5 +34,28 @@ namespace FindersKeeprs.Services
       return _repo.Create(newKeep);
     }
 
+    internal Keep Edit(Keep keepToUpdate)
+    {
+      Keep original = GetById(keepToUpdate.Id);
+      if (original.CreatorId != keepToUpdate.CreatorId)
+      {
+        throw new Exception("You are not the creator of this keep...");
+      }
+      original.Name = keepToUpdate.Name != null ? keepToUpdate.Name : original.Name;
+      original.Description = keepToUpdate.Description != null ? keepToUpdate.Description : original.Description;
+      original.Img = keepToUpdate.Img != null ? keepToUpdate.Img : original.Img;
+      _repo.Edit(original);
+      return original;
+    }
+
+    internal void Delete(int keepId, string userId)
+    {
+      Keep keep = GetById(keepId);
+      if (keep.CreatorId != userId)
+      {
+        throw new Exception("You are not the creator of this keep...");
+      }
+      _repo.Delete(keepId);
+    }
   }
 }

@@ -19,10 +19,6 @@ namespace FindersKeeprs.Controllers
       _ks = ks;
     }
 
-    // GetById
-    // Edit
-    // Delete
-
     [HttpGet]
     public ActionResult<Keep> GetAll()
     {
@@ -61,6 +57,40 @@ namespace FindersKeeprs.Controllers
         Keep createdKeep = _ks.Create(newKeep);
         createdKeep.Creator = userInfo;
         return createdKeep;
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpPut("{id}")]
+    [Authorize]
+    public async Task<ActionResult<Keep>> Edit(int id, [FromBody] Keep updatedKeep)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        updatedKeep.Id = id;
+        updatedKeep.CreatorId = userInfo.Id;
+        Keep keep = _ks.Edit(updatedKeep);
+        return Ok(keep);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public async Task<ActionResult<Keep>> Delete (int id)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        _ks.Delete(id, userInfo.Id);
+        return Ok("Keep Deleted");
       }
       catch (Exception e)
       {
