@@ -13,21 +13,17 @@ namespace FindersKeeprs.Services
         _repo = repo;
     }
 
-
-    // REVIEW get vault by id, if vault is private & you are creator, access allowed
-    internal Vault GetById(int vaultId)
+    internal Vault GetById(int vaultId, Account userInfo)
     {
         Vault vault = _repo.GetById(vaultId);
         if (vault == null)
         {
             throw new Exception("Invalid Id");
         }
-        // FIXME If you are not the creator and the vault is private, then this error should fire
-        // currently working with valid-auth, no-auth public is failing
-        // if (userId != vault.CreatorId && vault.isPrivate == true)
-        // {
-        //     throw new Exception("You are not authorized to view this vault");
-        // }
+        if (vault.CreatorId != userInfo?.Id && vault.isPrivate == true)
+        {
+            throw new Exception("You cannot do that...");
+        }
         return vault;
     }
 
@@ -36,9 +32,9 @@ namespace FindersKeeprs.Services
         return _repo.Create(newVault);
     }
 
-    internal Vault Edit(Vault updatedVault)
+    internal Vault Edit(Vault updatedVault, Account userInfo)
     {
-        Vault original = GetById(updatedVault.Id);
+        Vault original = GetById(updatedVault.Id, userInfo);
         if (original.CreatorId != updatedVault.CreatorId)
         {
         throw new Exception("You are not the creator of this vault...");

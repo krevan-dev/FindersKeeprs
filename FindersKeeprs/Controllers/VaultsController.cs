@@ -24,13 +24,8 @@ namespace FindersKeeprs.Controllers
     {
         try
         {
-            // TODO try putting userinfo check here instead of service...
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            Vault vault = _vs.GetById(id);
-            if (userInfo.Id != vault.CreatorId && vault.isPrivate == true)
-            {
-                throw new Exception("Unable to access that vault");
-            }
+            Vault vault = _vs.GetById(id, userInfo);
             return Ok(vault);
         }
         catch (Exception e)
@@ -59,14 +54,14 @@ namespace FindersKeeprs.Controllers
     
     [HttpPut("{id}")]
     [Authorize]
-    public async Task<ActionResult<Vault>> Edit(int id, [FromBody] Vault updatedVault)
+    public async Task<ActionResult<Vault>> Edit([FromBody] Vault updatedVault, int id)
     {
         try
         {   
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
             updatedVault.Id = id;
             updatedVault.CreatorId = userInfo.Id;
-            Vault vault = _vs.Edit(updatedVault);
+            Vault vault = _vs.Edit(updatedVault, userInfo);
             return Ok(vault);
         }
         catch (Exception e)
@@ -82,7 +77,7 @@ namespace FindersKeeprs.Controllers
         try
         {
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            Vault vault = _vs.GetById(id);
+            Vault vault = _vs.GetById(id, userInfo);
             if (userInfo.Id != vault.CreatorId)
             {
                 throw new Exception("You are not authorized to do this.");
