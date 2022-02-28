@@ -50,9 +50,9 @@ namespace FindersKeeprs.Repositories
     {
       string sql = @"
       INSERT INTO keeps
-      (name, description, img, creatorId)
+        (name, description, img, creatorId)
       VALUES
-      (@Name, @Description, @Img, @CreatorId);
+        (@Name, @Description, @Img, @CreatorId);
       SELECT LAST_INSERT_ID();";
       int id = _db.ExecuteScalar<int>(sql, newKeep);
       newKeep.Id = id;

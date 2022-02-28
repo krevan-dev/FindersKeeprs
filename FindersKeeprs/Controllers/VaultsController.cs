@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using FindersKeeprs.Models;
@@ -84,6 +85,19 @@ namespace FindersKeeprs.Controllers
             }
             _vs.Delete(id);
             return Ok("Vault deleted successfully");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("{id}/keeps")]
+    public ActionResult<List<VaultKeepViewModel>> GetKeepsByVaultId(int id)
+    {
+        try
+        {
+            return Ok(_vs.GetKeepsByVaultId(id));
         }
         catch (Exception e)
         {

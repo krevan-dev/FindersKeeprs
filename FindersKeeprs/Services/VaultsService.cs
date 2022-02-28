@@ -1,4 +1,5 @@
-using System;
+    using System;
+using System.Collections.Generic;
 using FindersKeeprs.Models;
 using FindersKeeprs.Repositories;
 
@@ -49,6 +50,11 @@ namespace FindersKeeprs.Services
     internal void Delete(int vaultId)
     {
       _repo.Delete(vaultId);
+    }
+
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
+    {
+      return _repo.GetKeepsByVaultId(id);
     }
   }
 }

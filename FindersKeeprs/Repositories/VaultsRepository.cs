@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Dapper;
@@ -34,9 +35,9 @@ namespace FindersKeeprs.Repositories
     {
         string sql = @"
         INSERT INTO vaults
-        (name, description, isPrivate, creatorId)
+          (name, description, isPrivate, creatorId)
         VALUES
-        (@Name, @Description, @isPrivate, @CreatorId);
+          (@Name, @Description, @isPrivate, @CreatorId);
         SELECT LAST_INSERT_ID();";
         int id = _db.ExecuteScalar<int>(sql, newVault);
         newVault.Id = id;
@@ -62,6 +63,26 @@ namespace FindersKeeprs.Repositories
       WHERE id = @id
       LIMIT 1";
       _db.Execute(sql, new {id});
+    }
+
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
+    {
+      string sql = @"
+      SELECT
+      k.*,
+      vk.id AS vaultKeepId,
+      a.*,
+      vk.vaultId,
+      vk.keepId
+      FROM vault_keeps vk
+      JOIN keeps k ON k.id = vk.keepId
+      JOIN accounts a ON a.id = k.creatorId
+      WHERE vk.vaultId = @id;";
+      return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (k, p) =>
+      {
+        k.Creator = p;
+        return k;
+      }, new { id }).ToList();
     }
   }
 }
