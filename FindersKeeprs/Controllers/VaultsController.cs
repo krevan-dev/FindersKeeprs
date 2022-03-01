@@ -93,11 +93,12 @@ namespace FindersKeeprs.Controllers
     }
 
     [HttpGet("{id}/keeps")]
-    public ActionResult<List<VaultKeepViewModel>> GetKeepsByVaultId(int id)
+    public async Task<ActionResult<List<VaultKeepViewModel>>> GetKeepsByVaultId(int id)
     {
         try
         {
-            return Ok(_vs.GetKeepsByVaultId(id));
+            Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+            return Ok(_vs.GetKeepsByVaultId(id, userInfo));
         }
         catch (Exception e)
         {

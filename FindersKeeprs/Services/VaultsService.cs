@@ -52,9 +52,10 @@ namespace FindersKeeprs.Services
       _repo.Delete(vaultId);
     }
 
-    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id, Account userInfo)
     {
-      return _repo.GetKeepsByVaultId(id);
+        Vault vault = GetById(id, userInfo);
+        return _repo.GetKeepsByVaultId(id);
     }
   }
 }

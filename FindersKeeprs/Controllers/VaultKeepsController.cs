@@ -27,11 +27,12 @@ namespace FindersKeeprs.Controllers
         {
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
             newVaultKeep.CreatorId = userInfo.Id;
-            return Ok(_vks.Create(newVaultKeep));
+            VaultKeep newVK = _vks.Create(newVaultKeep, userInfo);
+            return Ok(newVK);
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            return BadRequest(e.Message);
         }
     }
 
@@ -42,17 +43,17 @@ namespace FindersKeeprs.Controllers
         try
         {
             Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-            // VaultKeep vk = _vks.GetById(id);
-            // if (userInfo.Id != vk.CreatorId)
-            // {
-            //     throw new Exception("You are not authorized to do this.");
-            // }
-            // _vks.Delete(id);
+            VaultKeep vk = _vks.GetById(id);
+            if (userInfo?.Id != vk.CreatorId)
+            {
+                throw new Exception("You are not authorized to do this.");
+            }
+            _vks.Delete(id);
             return Ok("Successfully deleted vault");
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            return BadRequest(e.Message);
         }
     }
   }

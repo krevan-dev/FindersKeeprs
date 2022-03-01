@@ -1,4 +1,5 @@
 using System.Data;
+using System.Linq;
 using Dapper;
 using FindersKeeprs.Models;
 
@@ -24,6 +25,23 @@ namespace FindersKeeprs.Repositories
       int id = _db.ExecuteScalar<int>(sql, newVaultKeep);
       newVaultKeep.Id = id;
       return newVaultKeep;
+    }
+
+    internal VaultKeep GetById(int id)
+    {
+      string sql = @"
+      SELECT * FROM vault_keeps
+      WHERE id = @id;";
+      return _db.Query<VaultKeep>(sql, new {id}).FirstOrDefault();
+    }
+
+    internal void Delete(int id)
+    {
+      string sql = @"
+      DELETE FROM vault_keeps
+      WHERE id = @id
+      LIMIT 1;";
+      _db.Execute(sql, new {id});
     }
   }
 }
