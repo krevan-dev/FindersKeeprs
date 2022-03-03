@@ -12,13 +12,7 @@
   <!-- NOTE modal body below -->
   <Modal :id="'viewKeep-' + keep.id">
     <template #modal-title>
-<<<<<<< HEAD
       <div></div>
-=======
-      <div>
-        <h6>{{keep.id}}</h6>
-      </div>
->>>>>>> 5fa8ccc89f296948eaa2bf25f98ac7b18740f4ab
     </template>
     <template #modal-body>
       <div class="d-flex">
