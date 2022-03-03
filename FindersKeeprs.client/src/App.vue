@@ -10,9 +10,9 @@
       Made by Kyle E.
     </div>
   </footer>
-  <Modal id="newKeep">
+  <Modal id="createKeep">
     <template #modal-title></template>
-    <template #modal-body></template>
+    <template #modal-body><CreateKeep /></template>
   </Modal>
 </template>
 

@@ -23,9 +23,9 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
+          <!-- <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
             About
-          </router-link>
+          </router-link> -->
         </li>
       </ul>
       <span class="navbar-text">
@@ -43,6 +43,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
             id="authDropdown"
+            title="Click for more options"
           >
             <img
               :src="user.picture"
@@ -56,13 +57,17 @@
             class="dropdown-menu p-0 list-group w-100"
             aria-labelledby="authDropdown"
           >
+            <div class="list-group-item list-group-item-action hoverable" title="Create a new keep" data-bs-toggle="modal" data-bs-target="#createKeep">
+                Create a Keep
+              </div>
             <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
+              <div class="list-group-item list-group-item-action hoverable" title="Access your account">
                 Manage Account
               </div>
             </router-link>
             <div
               class="list-group-item list-group-item-action hoverable text-danger"
+              title="Click here to logout"
               @click="logout"
             >
               <i class="mdi mdi-logout"></i>

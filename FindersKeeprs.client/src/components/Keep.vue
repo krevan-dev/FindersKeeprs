@@ -13,6 +13,7 @@
   <Modal :id="'viewKeep-' + keep.id">
     <template #modal-title>
       <div>
+        <h6>{{keep.id}}</h6>
       </div>
     </template>
     <template #modal-body>
@@ -22,12 +23,17 @@
           :src="keep.img"
           :title="keep.name"
         />
-        <div class="ps-5 justify-content-center">
+        <div class="ps-3 justify-content-center">
           <h3>{{ keep.name }}</h3>
+          <p>
+            <i class="mdi mdi-eye" title="Total Views" /> {{keep.views}} | 
+            <!-- <i class="mdi mdi-share-variant" title="Total Shares" /> {{keep.shares}} | -->
+            <i class="mdi mdi-pin" title="Total Keeps" /> {{keep.keeps}} 
+          </p>
           <div>
             <p>{{ keep.description }}</p>
           </div>
-          <div class="">
+          <div class="d-flex p-5">
             <img
                 :src="keep.creator.picture"
                 class="profilePic ms-3 rounded-circle"
@@ -68,7 +74,7 @@ export default {
   width: 100%;
 }
 .profilePic {
-  height: 3vh;
-  width: 1.5vw;
+  height: 5vh;
+  max-width: 10vw;
 }
 </style>
