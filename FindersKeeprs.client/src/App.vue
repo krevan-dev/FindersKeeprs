@@ -7,9 +7,13 @@
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+      Made by Kyle E.
     </div>
   </footer>
+  <Modal id="newKeep">
+    <template #modal-title></template>
+    <template #modal-body></template>
+  </Modal>
 </template>
 
 <script>
