@@ -12,8 +12,7 @@
   <!-- NOTE modal body below -->
   <Modal :id="'viewKeep-' + keep.id">
     <template #modal-title>
-      <div>
-      </div>
+      <div></div>
     </template>
     <template #modal-body>
       <div class="d-flex">
@@ -35,6 +34,9 @@
                 :title="keep.creator.name"
               />
             <p>{{ keep.creator.name }}</p>
+            <div v-if="post.creatorId == account.id">
+              <button class="btn btn-danger mdi mdi-delete" @click="deleteKeep()" />
+            </div>
           </div>
         </div>
       </div>
@@ -44,6 +46,11 @@
 
 
 <script>
+import { computed } from '@vue/reactivity'
+import Pop from '../utils/Pop'
+import { Modal } from 'bootstrap'
+import { keepsService } from '../services/KeepsService'
+import { logger } from '../utils/Logger'
 export default {
   props: {
     keep: {
@@ -51,8 +58,21 @@ export default {
       required: true,
     }
   },
-  setup(){
-    return {}
+  setup(props){
+    return {
+      account: computed(() => AppState.account),
+      async deleteKeep() {
+        try {
+          if (await Pop.confirm()) {
+            Modal.getOrCreateInstance(document.getElementById('viewPost-' + props.post.id)).hide()
+            await keepsService.deletePost(props.post.id)
+          }
+        } catch (error) {
+          Pop.toast(error.message, "error")
+          logger.log(error)
+        }
+      }
+    }
   }
 }
 </script>
