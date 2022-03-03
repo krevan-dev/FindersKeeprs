@@ -84,5 +84,13 @@ namespace FindersKeeprs.Repositories
         return k;
       }, new { id }).ToList();
     }
+
+    internal List<Vault> GetVaultsByAccount(string userId)
+    {
+      string sql = @"
+      SELECT * FROM vaults v
+      WHERE v.creatorId = @userId;";
+      return _db.Query<Vault>(sql, new { userId }).ToList();
+    }
   }
 }

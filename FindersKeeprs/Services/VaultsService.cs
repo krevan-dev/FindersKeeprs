@@ -47,6 +47,12 @@ namespace FindersKeeprs.Services
         return original;
         }
 
+    internal List<Vault> GetVaultsByAccount(Account userInfo)
+    {
+      List<Vault> vault = _repo.GetVaultsByAccount(userInfo.Id);
+      return vault;
+    }
+
     internal void Delete(int vaultId)
     {
       _repo.Delete(vaultId);

@@ -3,7 +3,7 @@ using FindersKeeprs.Repositories;
 
 namespace FindersKeeprs.Services
 {
-    public class AccountService
+  public class AccountService
     {
         private readonly AccountsRepository _repo;
         public AccountService(AccountsRepository repo)
@@ -19,7 +19,13 @@ namespace FindersKeeprs.Services
         {
             return _repo.GetByEmail(email);
         }
-        internal Account GetOrCreateProfile(Account userInfo)
+
+    internal Profile GetProfileById(string id)
+    {
+      return _repo.GetById(id);
+    }
+
+    internal Account GetOrCreateProfile(Account userInfo)
         {
             Account profile = _repo.GetById(userInfo.Id);
             if (profile == null)
