@@ -79,5 +79,13 @@ namespace FindersKeeprs.Repositories
       LIMIT 1";
       _db.Execute(sql, new {id});
     }
+
+    internal List<Keep> GetKeepsByUserId(string id)
+    {
+      string sql = @"
+      SELECT * FROM keeps k
+      WHERE k.creatorId = @id;";
+      return _db.Query<Keep>(sql, new { id }).ToList();
+    }
   }
 }

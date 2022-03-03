@@ -22,7 +22,7 @@
         type="button"
         disabled
       >
-          <span>Posting...</span>
+          <span>Standby...</span>
           <span
             class="spinner-border spinner-border-sm ms-2"
             role="status"

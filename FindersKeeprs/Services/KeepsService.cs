@@ -57,5 +57,10 @@ namespace FindersKeeprs.Services
       }
       _repo.Delete(keepId);
     }
+
+    internal List<Keep> GetKeepsByUserId(string id)
+    {
+      return _repo.GetKeepsByUserId(id);
+    }
   }
 }
