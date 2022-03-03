@@ -35,7 +35,6 @@ namespace FindersKeeprs.Controllers
         }
     }
 
-    // TODO this is not yet finished
     [HttpGet("{id}/vaults")]
     public ActionResult<List<Vault>> GetVaultsByUserId(string id)
     {
@@ -50,7 +49,6 @@ namespace FindersKeeprs.Controllers
         }
     }
 
-    // TODO can't look at C# anymore
     [HttpGet("{id}/keeps")]
     public ActionResult<List<Keep>> GetKeepsByUserId(string id)
     {
