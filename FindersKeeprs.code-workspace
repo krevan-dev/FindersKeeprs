@@ -35,6 +35,11 @@
     "editor.codeActionsOnSave": {
       "source.fixAll": true
     },
-    "cSpell.ignoreWords": ["Keeprs"]
+    "cSpell.ignoreWords": [
+      "Keeprs"
+    ],
+    "cSpell.words": [
+      "hoverable"
+    ]
   }
 }
