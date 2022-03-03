@@ -51,7 +51,7 @@ export default {
   }
 }
 .masonry {
-  columns: 8 20vw;
+  columns: 4 5vw;
   column-gap: 1rem;
 }
 </style>

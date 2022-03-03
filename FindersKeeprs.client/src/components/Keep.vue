@@ -4,7 +4,7 @@
       <img :src="keep.img" class="card-img">
       <div class="card-img-overlay d-flex justify-content-between">
         <h5 class="card-title">{{keep.name}}</h5>
-        <img class="cardCreatorImg rounded-circle" :src="keep.creator.picture" :title="keep.creator.name">
+        <img class="cardCreatorImg rounded-circle" @click="goToProfile(keep.creator.id)" :src="keep.creator.picture" :title="keep.creator.name">
       </div>
     </div>
   </div>
@@ -31,18 +31,18 @@
           <div>
             <p>{{ keep.description }}</p>
           </div>
-          <div class="d-flex p-5">
+          <div class="d-flex selectable" @click="goToProfile(keep.creator.id)">
             <img
                 :src="keep.creator.picture"
-                class="profilePic ms-3 rounded-circle"
+                class="profilePic rounded-circle"
                 alt="profile picture"
                 :title="keep.creator.name"
               />
             <p>{{ keep.creator.name }}</p>
-            <div v-if="post.creatorId == account.id">
+          </div>
+            <div v-if="keep.creatorId == account.id">
               <button class="btn btn-danger mdi mdi-delete" @click="deleteKeep()" />
             </div>
-          </div>
         </div>
       </div>
     </template>
@@ -56,6 +56,8 @@ import Pop from '../utils/Pop'
 import { Modal } from 'bootstrap'
 import { keepsService } from '../services/KeepsService'
 import { logger } from '../utils/Logger'
+import { AppState } from '../AppState'
+import { useRouter } from 'vue-router'
 export default {
   props: {
     keep: {
@@ -64,18 +66,23 @@ export default {
     }
   },
   setup(props){
+    const router = useRouter()
     return {
       account: computed(() => AppState.account),
       async deleteKeep() {
         try {
           if (await Pop.confirm()) {
-            Modal.getOrCreateInstance(document.getElementById('viewPost-' + props.post.id)).hide()
-            await keepsService.deletePost(props.post.id)
+            Modal.getOrCreateInstance(document.getElementById('viewKeep-' + props.keep.id)).hide()
+            await keepsService.deleteKeep(props.keep.id)
           }
         } catch (error) {
           Pop.toast(error.message, "error")
           logger.log(error)
         }
+      },
+      goToProfile(creatorId) {
+        Modal.getOrCreateInstance(document.getElementById('viewKeep-' + props.keep.id)).hide()
+        router.push({ name: 'Profile', params: { id: creatorId }})
       }
     }
   }
