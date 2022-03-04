@@ -12,12 +12,14 @@ class KeepsService {
 
   async createKeep(newKeep) {
     const res = await api.post('api/keeps', newKeep)
+    // logger.log(res.data)
     AppState.keeps.unshift(res.data)
     Pop.toast("Keep successfully created!", 'success')
   }
 
   async deleteKeep(keepId) {
     await api.delete('api/keeps/' + keepId)
+    // logger.log(res.data)
     AppState.keeps = AppState.keeps.filter(k => k.id !== keepId)
     Pop.toast("Keep successfully removed!", 'success')
   }

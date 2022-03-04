@@ -5,13 +5,16 @@
         <img :src="profile.picture" class="rounded" height="150" />
         <div class="p-2">
           <h2>{{ profile.name }}</h2>
-          <h5>Total Vaults:</h5>
-          <h5>Total Keeps:</h5>
+          <h5>Total Vaults: {{profileVaults.length}}</h5>
+          <h5>Total Keeps: {{profileKeeps.length}}</h5>
         </div>
       </div>
     </div>
     <div class="row mt-3">
       <VaultCard v-for="v in profileVaults" :key="v.id" :vault="v"/>
+    </div>
+    <div class="row mt-3 masonry">
+      <VaultKeep v-for="k in profileKeeps" :key="k.id" :keep="k"/>
     </div>
   </div>
 </template>

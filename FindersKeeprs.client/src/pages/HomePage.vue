@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="masonry">
         <Keep v-for="k in keeps" :key="k.id" :keep="k" />
@@ -51,7 +51,7 @@ export default {
   }
 }
 .masonry {
-  columns: 4 5vw;
+  columns: 6 5vw;
   column-gap: 1rem;
 }
 </style>

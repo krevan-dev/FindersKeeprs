@@ -46,6 +46,22 @@ namespace FindersKeeprs.Repositories
       }, new {id}).FirstOrDefault();
     }
 
+    internal List<Keep> GetKeepsByUserId(string id)
+    {
+      string sql = @"
+      SELECT 
+      k.*,
+      a.*
+      FROM keeps k
+      JOIN accounts a on k.creatorId = a.id
+      WHERE k.creatorId = @id;";
+      return _db.Query<Keep, Profile, Keep>(sql, (k, p) =>
+      {
+        k.Creator = p;
+        return k;
+      }, new { id }).ToList();
+    }
+
     internal Keep Create(Keep newKeep)
     {
       string sql = @"
@@ -78,14 +94,6 @@ namespace FindersKeeprs.Repositories
       WHERE id = @id
       LIMIT 1";
       _db.Execute(sql, new {id});
-    }
-
-    internal List<Keep> GetKeepsByUserId(string id)
-    {
-      string sql = @"
-      SELECT * FROM keeps k
-      WHERE k.creatorId = @id;";
-      return _db.Query<Keep>(sql, new { id }).ToList();
     }
   }
 }

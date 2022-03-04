@@ -6,17 +6,13 @@
         <input type="text" class="form-control" id="vaultTitle" placeholder="Add a title to your vault" v-model="newVault.name">
         <label for="vaultTitle">Title</label>
       </div>
-      <div class="form-floating mb-2">
-        <input type="text" class="form-control" id="vaultImgUrl" placeholder="Add an image source to your vault" v-model="newVault.img">
-        <label for="vaultImgUrl">Image URL</label>
-      </div>
       <div class="form-floating">
         <textarea class="form-control" id="vaultDescription" placeholder="Add a description of your vault here" style="height: 125px" v-model="newVault.description"></textarea>
         <label for="vaultDescription">Description</label>
       </div>
-      <div class="form-check">
+      <div class="form-check mt-2">
         <label class="form-check-label" for="flexCheckDefault">
-          Default checkbox
+          Would you like to mark this vault as private?
         </label>
         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="newVault.isPrivate">
       </div>
