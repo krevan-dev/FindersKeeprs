@@ -1,6 +1,6 @@
 <template>
   <div class="component pt-3 brick">
-    <div class="card bg-dark text-white selectable user-select-none" data-bs-toggle="modal" :data-bs-target="'#viewKeep-' + keep.id" :title="keep.name">
+    <div class="card bg-dark text-white selectable user-select-none" data-bs-toggle="modal" :data-bs-target="'#viewKeep-' + keep.id" @click="addView(keep.id)" :title="keep.name">
       <img :src="keep.img" class="card-img">
       <div class="card-img-overlay d-flex justify-content-between">
         <h5 class="card-title">{{keep.name}}</h5>
@@ -89,6 +89,9 @@ export default {
       goToProfile(creatorId) {
         Modal.getOrCreateInstance(document.getElementById('viewKeep-' + props.keep.id)).hide()
         router.push({ name: 'Profile', params: { id: creatorId }})
+      },
+      addView(keepId) {
+        // TODO this to add view?
       }
     }
   }
