@@ -47,9 +47,14 @@ namespace FindersKeeprs.Services
         return original;
         }
 
-    internal List<Vault> GetVaultsByUserId(string id)
+    internal List<Vault> GetVaultsByUserId(string id, string userId)
     {
-        return _repo.GetVaultsByUserId(id);
+        List<Vault> vaults = _repo.GetVaultsByUserId(id);
+        if (id != userId)
+        {
+            return vaults.FindAll(v => v.isPrivate == false);
+        }
+        return vaults;
     }
 
 

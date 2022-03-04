@@ -58,20 +58,23 @@
             aria-labelledby="authDropdown"
           >
             <div class="list-group-item list-group-item-action hoverable" title="Create a new keep" data-bs-toggle="modal" data-bs-target="#createKeep">
-                Create a Keep
-              </div>
-            <router-link :to="{ name: 'Account' }">
+              Create A New Keep
+            </div>
+            <div class="list-group-item list-group-item-action hoverable" title="Create a new vault" data-bs-toggle="modal" data-bs-target="#createVault">
+              Create A New Vault
+            </div>
+            <!-- <router-link :to="{ name: 'Account' }">
               <div class="list-group-item list-group-item-action hoverable" title="Access your account">
                 Manage Account
               </div>
-            </router-link>
+            </router-link> -->
             <div
               class="list-group-item list-group-item-action hoverable text-danger"
               title="Click here to logout"
               @click="logout"
             >
+              Logout
               <i class="mdi mdi-logout"></i>
-              logout
             </div>
           </div>
         </div>

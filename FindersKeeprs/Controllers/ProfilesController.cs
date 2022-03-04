@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeWorks.Auth0Provider;
 using FindersKeeprs.Models;
 using FindersKeeprs.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -36,11 +38,12 @@ namespace FindersKeeprs.Controllers
     }
 
     [HttpGet("{id}/vaults")]
-    public ActionResult<List<Vault>> GetVaultsByUserId(string id)
+    public async Task<ActionResult<List<Vault>>> GetVaultsByUserId(string id)
     {
       try
       {
-        List<Vault> foundVault = _vs.GetVaultsByUserId(id);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        List<Vault> foundVault = _vs.GetVaultsByUserId(id, userInfo?.Id);
         return foundVault;
       }
       catch (Exception e)

@@ -14,6 +14,10 @@
     <template #modal-title></template>
     <template #modal-body><CreateKeep /></template>
   </Modal>
+  <Modal id="createVault">
+    <template #modal-title></template>
+    <template #modal-body><CreateVault /></template>
+  </Modal>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div class="component">
-    <h2 class="pb-2">Create New Keep</h2>
+    <h2 class="pb-2">Create A New Keep</h2>
     <form @submit.prevent="createKeep()">
       <div class="form-floating mb-2">
         <input type="text" class="form-control" id="keepTitle" placeholder="Add a title to your keep" v-model="newKeep.name">
