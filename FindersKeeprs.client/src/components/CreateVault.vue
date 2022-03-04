@@ -46,7 +46,9 @@ import { Modal } from 'bootstrap'
 import { ref } from '@vue/reactivity'
 export default {
   setup(){
-    const newVault = ref({})
+    const newVault = ref({
+      isPrivate: false
+    })
     const creating = ref(false)
     return {
       newVault,

@@ -17,6 +17,9 @@ namespace FindersKeeprs.Repositories
     internal VaultKeep Create(VaultKeep newVaultKeep)
     {
       string sql = @"
+      UPDATE keeps
+      SET keeps = keeps + 1
+      WHERE id = @KeepId;
       INSERT INTO vault_keeps
         (vaultId, keepId, creatorId)
       VALUES

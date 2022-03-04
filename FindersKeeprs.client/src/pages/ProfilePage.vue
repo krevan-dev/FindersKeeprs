@@ -11,10 +11,14 @@
       </div>
     </div>
     <div class="row mt-3">
+      <h4>Vaults:</h4>
       <VaultCard v-for="v in profileVaults" :key="v.id" :vault="v"/>
     </div>
-    <div class="row mt-3 masonry">
-      <Keep v-for="k in profileKeeps" :key="k.id" :keep="k"/>
+    <div class="row mt-3">
+        <h4>Keeps:</h4>
+      <div class="masonry">
+        <Keep v-for="k in profileKeeps" :key="k.id" :keep="k"/>
+      </div>
     </div>
   </div>
 </template>

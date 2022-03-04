@@ -3,8 +3,11 @@
     {{vault.name}}
     <button v-if="vault.creatorId == account.id" class="btn btn-danger" @click="deleteVault()">Delete</button>
     {{vault.creatorId}}
-
-    <VaultKeep v-for="vk in vaultKeeps" :key="vk.id" :vaultKeep="vk"/>
+    <div class="row">
+      <div class="masonry">
+        <VaultKeep v-for="vk in vaultKeeps" :key="vk.id" :vaultKeep="vk"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,5 +56,12 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.masonry {
+  columns: 8 20vw;
+  column-gap: 1rem;
+  .brick {
+    display: inline-block;
+    width: 100%;
+  }
+}
 </style>
