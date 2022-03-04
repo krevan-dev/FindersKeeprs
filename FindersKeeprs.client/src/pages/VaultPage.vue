@@ -3,6 +3,8 @@
     {{vault.name}}
     <button v-if="vault.creatorId == account.id" class="btn btn-danger" @click="deleteVault()">Delete</button>
     {{vault.creatorId}}
+
+    <VaultKeep v-for="vk in vaultKeeps" :key="vk.id" :vaultKeep="vk"/>
   </div>
 </template>
 
@@ -32,6 +34,7 @@ export default {
       router,
       vault: computed(() => AppState.activeVault),
       account: computed(() => AppState.account),
+      vaultKeeps: computed(() => AppState.vaultKeeps),
       async deleteVault() {
         try {
           if (await Pop.confirm()) {

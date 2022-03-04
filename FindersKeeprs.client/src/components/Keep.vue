@@ -15,34 +15,40 @@
       <div></div>
     </template>
     <template #modal-body>
-      <div class="d-flex">
-        <img
-          class="card-img img-fluid w-50"
-          :src="keep.img"
-          :title="keep.name"
-        />
-        <div class="ps-3 justify-content-center">
-          <h3>{{ keep.name }}</h3>
-          <p>
-            <i class="mdi mdi-eye" title="Total Views" /> {{keep.views}} | 
-            <!-- <i class="mdi mdi-share-variant" title="Total Shares" /> {{keep.shares}} | -->
-            <i class="mdi mdi-pin" title="Total Keeps" /> {{keep.keeps}} 
-          </p>
-          <div>
-            <p>{{ keep.description }}</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+          <img
+            class="card-img img-fluid"
+            :src="keep.img"
+            :title="keep.name"
+          />
           </div>
-          <div class="d-flex selectable" @click="goToProfile(keep.creator.id)">
-            <img
-                :src="keep.creator.picture"
-                class="profilePic rounded-circle"
-                alt="profile picture"
-                :title="keep.creator.name"
-              />
-            <p>{{ keep.creator.name }}</p>
-          </div>
-            <div v-if="keep.creatorId == account.id">
-              <button class="btn btn-danger mdi mdi-delete" @click="deleteKeep()" />
+          <div class="col-6">
+            <div class="ps-3">
+              <div class="d-flex justify-content-between">
+                <h3>{{ keep.name }}</h3>
+                <button v-if="keep.creatorId == account.id" class="btn btn-danger mdi mdi-delete" @click="deleteKeep()" />
+              </div>
+              <p>
+                <i class="mdi mdi-eye" title="Total Views" /> {{keep.views}} | 
+                <!-- <i class="mdi mdi-share-variant" title="Total Shares" /> {{keep.shares}} | -->
+                <i class="mdi mdi-pin" title="Total Keeps" /> {{keep.keeps}} 
+              </p>
+              <div>
+                <p>{{ keep.description }}</p>
+              </div>
+              <div class="d-flex selectable" @click="goToProfile(keep.creator.id)">
+                <img
+                    :src="keep.creator.picture"
+                    class="profilePic rounded-circle"
+                    alt="profile picture"
+                    :title="keep.creator.name"
+                  />
+                <p>{{ keep.creator.name }}</p>
+              </div>
             </div>
+          </div>
         </div>
       </div>
     </template>

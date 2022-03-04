@@ -14,7 +14,7 @@
       <VaultCard v-for="v in profileVaults" :key="v.id" :vault="v"/>
     </div>
     <div class="row mt-3 masonry">
-      <VaultKeep v-for="k in profileKeeps" :key="k.id" :keep="k"/>
+      <Keep v-for="k in profileKeeps" :key="k.id" :keep="k"/>
     </div>
   </div>
 </template>
